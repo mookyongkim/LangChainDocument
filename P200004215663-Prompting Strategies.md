@@ -333,6 +333,14 @@ print(context["table_info"])
 </span>
 </pre>
 
+```python
+prompt_with_context = prompt_with_context = chain.get_prompts()[0].partial(table_info=context["table_info"])
+print(prompt_with_context.pretty_repr()[:1500])
+
+```
+테이블 정보가 컨텍스트 윈도우 사이즈를 초과하는 경우, 사용자 질의와 관련된 테이블 정보만 프롬프트에 삽입하는 방안을 고민해야한다.
+
+
 
 # 👋 Few-shot examples
 # 👋 Dynamic few-shot examples
