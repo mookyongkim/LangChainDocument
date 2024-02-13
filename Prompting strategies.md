@@ -45,6 +45,23 @@ db.run("select * from artists limit 10;")
 ```
 
 # 👋 Dialect-specific prompting
+가장 간단하게 프롬프트를 설정하는 방법은 사용할 SQL 데이터베이스 특성에 맞게 프롬프트를 설정하는 것이다.
+```python
+from langchain.chains.sql_database.prompt import SQL_PROMPTS
+
+list(SQL_PROMPTS)
+
+```
+
+```python
+from langchain.chains import create_sql_query_chain
+from langchain_openai import ChatOpenAI
+
+llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0)
+chain = create_sql_query_chain(llm, db)
+chat.get_prompts()[0].pretty_print()
+```
+
 # 👋 Table definitions and example rows
 # 👋 Few-shot examples
 # 👋 Dynamic few-shot examples
