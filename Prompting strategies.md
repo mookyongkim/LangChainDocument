@@ -14,7 +14,7 @@ Prompt에서 데이터베이스 정보를 가져오는 방법
 ```ssh
 !pip install --quiet langchain langchain-community langchain-experimental langchain-openai
 ```
-## 코드
+## 👀 코드
 ```python
 import os
 os.environ["OPENAI_API_KEY"] = "..."
@@ -28,7 +28,7 @@ print(db.dialect)
 print(db.get_usable_table_names())
 db.run("select * from artists limit 10;")
 ```
-## 결과
+## 👀 결과
 <pre>
 <span style="font-family: Consolas">
 <span style="color: #000000">sqlite</span>
