@@ -52,6 +52,22 @@ from langchain.chains.sql_database.prompt import SQL_PROMPTS
 list(SQL_PROMPTS)
 
 ```
+<pre>
+<span style="font-family: Consolas">
+<span style="color: #000000">[</span><span style="color: #ff00ff">'crate'</span><span style="color: #000000">,</span>
+ <span style="color: #ff00ff">'duckdb'</span><span style="color: #000000">,</span>
+ <span style="color: #ff00ff">'googlesql'</span><span style="color: #000000">,</span>
+ <span style="color: #ff00ff">'mssql'</span><span style="color: #000000">,</span>
+ <span style="color: #ff00ff">'mysql'</span><span style="color: #000000">,</span>
+ <span style="color: #ff00ff">'mariadb'</span><span style="color: #000000">,</span>
+ <span style="color: #ff00ff">'oracle'</span><span style="color: #000000">,</span>
+ <span style="color: #ff00ff">'postgresql'</span><span style="color: #000000">,</span>
+ <span style="color: #ff00ff">'sqlite'</span><span style="color: #000000">,</span>
+ <span style="color: #ff00ff">'clickhouse'</span><span style="color: #000000">,</span>
+ <span style="color: #ff00ff">'prestodb'</span><span style="color: #000000">]</span>
+</span>
+</pre>
+
 
 ```python
 from langchain.chains import create_sql_query_chain
@@ -61,6 +77,29 @@ llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0)
 chain = create_sql_query_chain(llm, db)
 chat.get_prompts()[0].pretty_print()
 ```
+
+<pre>
+<span style="font-family: Consolas">
+<span style="color: #000000">You are a SQLite expert. Given an </span><span style="color: #808000">input </span><span style="color: #000000">question, first create a syntactically correct SQLite query to run, then look at the results of the query </span><span style="color: #0000ff">and return </span><span style="color: #000000">the answer to the </span><span style="color: #808000">input </span><span style="color: #000000">question.</span>
+<span style="color: #000000">Unless the user specifies </span><span style="color: #0000ff">in </span><span style="color: #000000">the question a specific number of examples to obtain, query </span><span style="color: #0000ff">for </span><span style="color: #000000">at most 5 results using the LIMIT clause </span><span style="color: #0000ff">as </span><span style="color: #000000">per SQLite. You can order the results to </span><span style="color: #0000ff">return </span><span style="color: #000000">the most informative data </span><span style="color: #0000ff">in </span><span style="color: #000000">the database.</span>
+<span style="color: #000000">Never query </span><span style="color: #0000ff">for </span><span style="color: #808000">all </span><span style="color: #000000">columns </span><span style="color: #0000ff">from </span><span style="color: #000000">a table. You must query only the columns that are needed to answer the question. Wrap each column </span><span style="color: #008080">name </span><span style="color: #0000ff">in </span><span style="color: #000000">double quotes (</span><span style="color: #ff00ff">&quot;) to denote them as delimited identifiers.</span>
+<span style="color: #000000">Pay attention to use only the column names you can see </span><span style="color: #0000ff">in </span><span style="color: #000000">the tables below. Be careful to </span><span style="color: #0000ff">not </span><span style="color: #000000">query </span><span style="color: #0000ff">for </span><span style="color: #000000">columns that do </span><span style="color: #0000ff">not </span><span style="color: #000000">exist. Also, pay attention to which column </span><span style="color: #0000ff">is in </span><span style="color: #000000">which table.</span>
+<span style="color: #000000">Pay attention to use date(</span><span style="color: #ff00ff">'now'</span><span style="color: #000000">) function to </span><span style="color: #008080">get </span><span style="color: #000000">the current date, </span><span style="color: #0000ff">if </span><span style="color: #000000">the question involves </span><span style="color: #ff00ff">&quot;today&quot;</span><span style="color: #000000">.</span>
+
+<span style="color: #000000">Use the following </span><span style="color: #008080">format</span><span style="color: #000000">:</span>
+
+<span style="color: #000000">Question: Question here</span>
+<span style="color: #000000">SQLQuery: SQL Query to run</span>
+<span style="color: #000000">SQLResult: Result of the SQLQuery</span>
+<span style="color: #000000">Answer: Final answer here</span>
+
+<span style="color: #000000">Only use the following tables:</span>
+<span style="color: #000000">{table_info}</span>
+
+<span style="color: #000000">Question: {</span><span style="color: #808000">input</span><span style="color: #000000">}</span>
+</span>
+</pre>
+
 
 # 👋 Table definitions and example rows
 # 👋 Few-shot examples
