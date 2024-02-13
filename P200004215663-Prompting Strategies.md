@@ -102,5 +102,237 @@ chat.get_prompts()[0].pretty_print()
 
 
 # 👋 Table definitions and example rows
+
+```python
+context = db.get_context()
+print(list(context))
+print(context["table_info"])
+
+```
+
+<pre>
+<span style="font-family: Consolas">
+<span style="color: #000000">[</span><span style="color: #ff00ff">'table_info'</span><span style="color: #000000">, </span><span style="color: #ff00ff">'table_names'</span><span style="color: #000000">]</span>
+
+<span style="color: #000000">CREATE TABLE albums (</span>
+	<span style="color: #ff00ff">&quot;AlbumId&quot; </span><span style="color: #000000">INTEGER NOT NULL, </span>
+	<span style="color: #ff00ff">&quot;Title&quot; </span><span style="color: #000000">NVARCHAR(160) NOT NULL, </span>
+	<span style="color: #ff00ff">&quot;ArtistId&quot; </span><span style="color: #000000">INTEGER NOT NULL, </span>
+	<span style="color: #000000">PRIMARY KEY (</span><span style="color: #ff00ff">&quot;AlbumId&quot;</span><span style="color: #000000">), </span>
+	<span style="color: #000000">FOREIGN KEY(</span><span style="color: #ff00ff">&quot;ArtistId&quot;</span><span style="color: #000000">) REFERENCES artists (</span><span style="color: #ff00ff">&quot;ArtistId&quot;</span><span style="color: #000000">)</span>
+<span style="color: #000000">)</span>
+
+<span style="color: #008080">/*</span>
+<span style="color: #000000">3 rows </span><span style="color: #0000ff">from </span><span style="color: #000000">albums table:</span>
+<span style="color: #000000">AlbumId	Title	ArtistId</span>
+<span style="color: #000000">1	For Those About To Rock We Salute You	1</span>
+<span style="color: #000000">2	Balls to the Wall	2</span>
+<span style="color: #000000">3	Restless </span><span style="color: #0000ff">and </span><span style="color: #000000">Wild	2</span>
+<span style="color: #008080">*/</span>
+
+
+<span style="color: #000000">CREATE TABLE artists (</span>
+	<span style="color: #ff00ff">&quot;ArtistId&quot; </span><span style="color: #000000">INTEGER NOT NULL, </span>
+	<span style="color: #ff00ff">&quot;Name&quot; </span><span style="color: #000000">NVARCHAR(120), </span>
+	<span style="color: #000000">PRIMARY KEY (</span><span style="color: #ff00ff">&quot;ArtistId&quot;</span><span style="color: #000000">)</span>
+<span style="color: #000000">)</span>
+
+<span style="color: #008080">/*</span>
+<span style="color: #000000">3 rows </span><span style="color: #0000ff">from </span><span style="color: #000000">artists table:</span>
+<span style="color: #000000">ArtistId	Name</span>
+<span style="color: #000000">1	AC</span><span style="color: #008080">/</span><span style="color: #000000">DC</span>
+<span style="color: #000000">2	Accept</span>
+<span style="color: #000000">3	Aerosmith</span>
+<span style="color: #008080">*/</span>
+
+
+<span style="color: #000000">CREATE TABLE customers (</span>
+	<span style="color: #ff00ff">&quot;CustomerId&quot; </span><span style="color: #000000">INTEGER NOT NULL, </span>
+	<span style="color: #ff00ff">&quot;FirstName&quot; </span><span style="color: #000000">NVARCHAR(40) NOT NULL, </span>
+	<span style="color: #ff00ff">&quot;LastName&quot; </span><span style="color: #000000">NVARCHAR(20) NOT NULL, </span>
+	<span style="color: #ff00ff">&quot;Company&quot; </span><span style="color: #000000">NVARCHAR(80), </span>
+	<span style="color: #ff00ff">&quot;Address&quot; </span><span style="color: #000000">NVARCHAR(70), </span>
+	<span style="color: #ff00ff">&quot;City&quot; </span><span style="color: #000000">NVARCHAR(40), </span>
+	<span style="color: #ff00ff">&quot;State&quot; </span><span style="color: #000000">NVARCHAR(40), </span>
+	<span style="color: #ff00ff">&quot;Country&quot; </span><span style="color: #000000">NVARCHAR(40), </span>
+	<span style="color: #ff00ff">&quot;PostalCode&quot; </span><span style="color: #000000">NVARCHAR(10), </span>
+	<span style="color: #ff00ff">&quot;Phone&quot; </span><span style="color: #000000">NVARCHAR(24), </span>
+	<span style="color: #ff00ff">&quot;Fax&quot; </span><span style="color: #000000">NVARCHAR(24), </span>
+	<span style="color: #ff00ff">&quot;Email&quot; </span><span style="color: #000000">NVARCHAR(60) NOT NULL, </span>
+	<span style="color: #ff00ff">&quot;SupportRepId&quot; </span><span style="color: #000000">INTEGER, </span>
+	<span style="color: #000000">PRIMARY KEY (</span><span style="color: #ff00ff">&quot;CustomerId&quot;</span><span style="color: #000000">), </span>
+	<span style="color: #000000">FOREIGN KEY(</span><span style="color: #ff00ff">&quot;SupportRepId&quot;</span><span style="color: #000000">) REFERENCES employees (</span><span style="color: #ff00ff">&quot;EmployeeId&quot;</span><span style="color: #000000">)</span>
+<span style="color: #000000">)</span>
+
+<span style="color: #008080">/*</span>
+<span style="color: #000000">3 rows </span><span style="color: #0000ff">from </span><span style="color: #000000">customers table:</span>
+<span style="color: #000000">CustomerId	FirstName	LastName	Company	Address	City	State	Country	PostalCode	Phone	Fax	Email	SupportRepId</span>
+<span style="color: #000000">1	Lu&iacute;s	Gon&ccedil;alves	Embraer </span><span style="color: #008080">- </span><span style="color: #000000">Empresa Brasileira de Aeron&aacute;utica S.A.	Av. Brigadeiro Faria Lima, 2170	S&atilde;o Jos&eacute; dos Campos	SP	Brazil	12227</span><span style="color: #008080">-</span><span style="color: #000000">000	</span><span style="color: #008080">+</span><span style="color: #000000">55 (12) 3923</span><span style="color: #008080">-</span><span style="color: #000000">5555	</span><span style="color: #008080">+</span><span style="color: #000000">55 (12) 3923</span><span style="color: #008080">-</span><span style="color: #000000">5566	luisg@embraer.com.br	3</span>
+<span style="color: #000000">2	Leonie	K&ouml;hler	</span><span style="color: #0000ff">None	</span><span style="color: #000000">Theodor</span><span style="color: #008080">-</span><span style="color: #000000">Heuss</span><span style="color: #008080">-</span><span style="color: #000000">Stra&szlig;e 34	Stuttgart	</span><span style="color: #0000ff">None	</span><span style="color: #000000">Germany	70174	</span><span style="color: #008080">+</span><span style="color: #000000">49 0711 2842222	</span><span style="color: #0000ff">None	</span><span style="color: #000000">leonekohler@surfeu.de	5</span>
+<span style="color: #000000">3	Fran&ccedil;ois	Tremblay	</span><span style="color: #0000ff">None	</span><span style="color: #000000">1498 rue B&eacute;langer	Montr&eacute;al	QC	Canada	H2G 1A7	</span><span style="color: #008080">+</span><span style="color: #000000">1 (514) 721</span><span style="color: #008080">-</span><span style="color: #000000">4711	</span><span style="color: #0000ff">None	</span><span style="color: #000000">ftremblay@gmail.com	3</span>
+<span style="color: #008080">*/</span>
+
+
+<span style="color: #000000">CREATE TABLE employees (</span>
+	<span style="color: #ff00ff">&quot;EmployeeId&quot; </span><span style="color: #000000">INTEGER NOT NULL, </span>
+	<span style="color: #ff00ff">&quot;LastName&quot; </span><span style="color: #000000">NVARCHAR(20) NOT NULL, </span>
+	<span style="color: #ff00ff">&quot;FirstName&quot; </span><span style="color: #000000">NVARCHAR(20) NOT NULL, </span>
+	<span style="color: #ff00ff">&quot;Title&quot; </span><span style="color: #000000">NVARCHAR(30), </span>
+	<span style="color: #ff00ff">&quot;ReportsTo&quot; </span><span style="color: #000000">INTEGER, </span>
+	<span style="color: #ff00ff">&quot;BirthDate&quot; </span><span style="color: #000000">DATETIME, </span>
+	<span style="color: #ff00ff">&quot;HireDate&quot; </span><span style="color: #000000">DATETIME, </span>
+	<span style="color: #ff00ff">&quot;Address&quot; </span><span style="color: #000000">NVARCHAR(70), </span>
+	<span style="color: #ff00ff">&quot;City&quot; </span><span style="color: #000000">NVARCHAR(40), </span>
+	<span style="color: #ff00ff">&quot;State&quot; </span><span style="color: #000000">NVARCHAR(40), </span>
+	<span style="color: #ff00ff">&quot;Country&quot; </span><span style="color: #000000">NVARCHAR(40), </span>
+	<span style="color: #ff00ff">&quot;PostalCode&quot; </span><span style="color: #000000">NVARCHAR(10), </span>
+	<span style="color: #ff00ff">&quot;Phone&quot; </span><span style="color: #000000">NVARCHAR(24), </span>
+	<span style="color: #ff00ff">&quot;Fax&quot; </span><span style="color: #000000">NVARCHAR(24), </span>
+	<span style="color: #ff00ff">&quot;Email&quot; </span><span style="color: #000000">NVARCHAR(60), </span>
+	<span style="color: #000000">PRIMARY KEY (</span><span style="color: #ff00ff">&quot;EmployeeId&quot;</span><span style="color: #000000">), </span>
+	<span style="color: #000000">FOREIGN KEY(</span><span style="color: #ff00ff">&quot;ReportsTo&quot;</span><span style="color: #000000">) REFERENCES employees (</span><span style="color: #ff00ff">&quot;EmployeeId&quot;</span><span style="color: #000000">)</span>
+<span style="color: #000000">)</span>
+
+<span style="color: #008080">/*</span>
+<span style="color: #000000">3 rows </span><span style="color: #0000ff">from </span><span style="color: #000000">employees table:</span>
+<span style="color: #000000">EmployeeId	LastName	FirstName	Title	ReportsTo	BirthDate	HireDate	Address	City	State	Country	PostalCode	Phone	Fax	Email</span>
+<span style="color: #000000">1	Adams	Andrew	General Manager	</span><span style="color: #0000ff">None	</span><span style="color: #000000">1962</span><span style="color: #008080">-</span><span style="color: #000000">02</span><span style="color: #008080">-</span><span style="color: #000000">18 00:00:00	2002</span><span style="color: #008080">-</span><span style="color: #000000">08</span><span style="color: #008080">-</span><span style="color: #000000">14 00:00:00	11120 Jasper Ave NW	Edmonton	AB	Canada	T5K 2N1	</span><span style="color: #008080">+</span><span style="color: #000000">1 (780) 428</span><span style="color: #008080">-</span><span style="color: #000000">9482	</span><span style="color: #008080">+</span><span style="color: #000000">1 (780) 428</span><span style="color: #008080">-</span><span style="color: #000000">3457	andrew@chinookcorp.com</span>
+<span style="color: #000000">2	Edwards	Nancy	Sales Manager	1	1958</span><span style="color: #008080">-</span><span style="color: #000000">12</span><span style="color: #008080">-</span><span style="color: #000000">08 00:00:00	2002</span><span style="color: #008080">-</span><span style="color: #000000">05</span><span style="color: #008080">-</span><span style="color: #000000">01 00:00:00	825 8 Ave SW	Calgary	AB	Canada	T2P 2T3	</span><span style="color: #008080">+</span><span style="color: #000000">1 (403) 262</span><span style="color: #008080">-</span><span style="color: #000000">3443	</span><span style="color: #008080">+</span><span style="color: #000000">1 (403) 262</span><span style="color: #008080">-</span><span style="color: #000000">3322	nancy@chinookcorp.com</span>
+<span style="color: #000000">3	Peacock	Jane	Sales Support Agent	2	1973</span><span style="color: #008080">-</span><span style="color: #000000">08</span><span style="color: #008080">-</span><span style="color: #000000">29 00:00:00	2002</span><span style="color: #008080">-</span><span style="color: #000000">04</span><span style="color: #008080">-</span><span style="color: #000000">01 00:00:00	1111 6 Ave SW	Calgary	AB	Canada	T2P 5M5	</span><span style="color: #008080">+</span><span style="color: #000000">1 (403) 262</span><span style="color: #008080">-</span><span style="color: #000000">3443	</span><span style="color: #008080">+</span><span style="color: #000000">1 (403) 262</span><span style="color: #008080">-</span><span style="color: #000000">6712	jane@chinookcorp.com</span>
+<span style="color: #008080">*/</span>
+
+
+<span style="color: #000000">CREATE TABLE genres (</span>
+	<span style="color: #ff00ff">&quot;GenreId&quot; </span><span style="color: #000000">INTEGER NOT NULL, </span>
+	<span style="color: #ff00ff">&quot;Name&quot; </span><span style="color: #000000">NVARCHAR(120), </span>
+	<span style="color: #000000">PRIMARY KEY (</span><span style="color: #ff00ff">&quot;GenreId&quot;</span><span style="color: #000000">)</span>
+<span style="color: #000000">)</span>
+
+<span style="color: #008080">/*</span>
+<span style="color: #000000">3 rows </span><span style="color: #0000ff">from </span><span style="color: #000000">genres table:</span>
+<span style="color: #000000">GenreId	Name</span>
+<span style="color: #000000">1	Rock</span>
+<span style="color: #000000">2	Jazz</span>
+<span style="color: #000000">3	Metal</span>
+<span style="color: #008080">*/</span>
+
+
+<span style="color: #000000">CREATE TABLE invoice_items (</span>
+	<span style="color: #ff00ff">&quot;InvoiceLineId&quot; </span><span style="color: #000000">INTEGER NOT NULL, </span>
+	<span style="color: #ff00ff">&quot;InvoiceId&quot; </span><span style="color: #000000">INTEGER NOT NULL, </span>
+	<span style="color: #ff00ff">&quot;TrackId&quot; </span><span style="color: #000000">INTEGER NOT NULL, </span>
+	<span style="color: #ff00ff">&quot;UnitPrice&quot; </span><span style="color: #000000">NUMERIC(10, 2) NOT NULL, </span>
+	<span style="color: #ff00ff">&quot;Quantity&quot; </span><span style="color: #000000">INTEGER NOT NULL, </span>
+	<span style="color: #000000">PRIMARY KEY (</span><span style="color: #ff00ff">&quot;InvoiceLineId&quot;</span><span style="color: #000000">), </span>
+	<span style="color: #000000">FOREIGN KEY(</span><span style="color: #ff00ff">&quot;TrackId&quot;</span><span style="color: #000000">) REFERENCES tracks (</span><span style="color: #ff00ff">&quot;TrackId&quot;</span><span style="color: #000000">), </span>
+	<span style="color: #000000">FOREIGN KEY(</span><span style="color: #ff00ff">&quot;InvoiceId&quot;</span><span style="color: #000000">) REFERENCES invoices (</span><span style="color: #ff00ff">&quot;InvoiceId&quot;</span><span style="color: #000000">)</span>
+<span style="color: #000000">)</span>
+
+<span style="color: #008080">/*</span>
+<span style="color: #000000">3 rows </span><span style="color: #0000ff">from </span><span style="color: #000000">invoice_items table:</span>
+<span style="color: #000000">InvoiceLineId	InvoiceId	TrackId	UnitPrice	Quantity</span>
+<span style="color: #000000">1	1	2	0.99	1</span>
+<span style="color: #000000">2	1	4	0.99	1</span>
+<span style="color: #000000">3	2	6	0.99	1</span>
+<span style="color: #008080">*/</span>
+
+
+<span style="color: #000000">CREATE TABLE invoices (</span>
+	<span style="color: #ff00ff">&quot;InvoiceId&quot; </span><span style="color: #000000">INTEGER NOT NULL, </span>
+	<span style="color: #ff00ff">&quot;CustomerId&quot; </span><span style="color: #000000">INTEGER NOT NULL, </span>
+	<span style="color: #ff00ff">&quot;InvoiceDate&quot; </span><span style="color: #000000">DATETIME NOT NULL, </span>
+	<span style="color: #ff00ff">&quot;BillingAddress&quot; </span><span style="color: #000000">NVARCHAR(70), </span>
+	<span style="color: #ff00ff">&quot;BillingCity&quot; </span><span style="color: #000000">NVARCHAR(40), </span>
+	<span style="color: #ff00ff">&quot;BillingState&quot; </span><span style="color: #000000">NVARCHAR(40), </span>
+	<span style="color: #ff00ff">&quot;BillingCountry&quot; </span><span style="color: #000000">NVARCHAR(40), </span>
+	<span style="color: #ff00ff">&quot;BillingPostalCode&quot; </span><span style="color: #000000">NVARCHAR(10), </span>
+	<span style="color: #ff00ff">&quot;Total&quot; </span><span style="color: #000000">NUMERIC(10, 2) NOT NULL, </span>
+	<span style="color: #000000">PRIMARY KEY (</span><span style="color: #ff00ff">&quot;InvoiceId&quot;</span><span style="color: #000000">), </span>
+	<span style="color: #000000">FOREIGN KEY(</span><span style="color: #ff00ff">&quot;CustomerId&quot;</span><span style="color: #000000">) REFERENCES customers (</span><span style="color: #ff00ff">&quot;CustomerId&quot;</span><span style="color: #000000">)</span>
+<span style="color: #000000">)</span>
+
+<span style="color: #008080">/*</span>
+<span style="color: #000000">3 rows </span><span style="color: #0000ff">from </span><span style="color: #000000">invoices table:</span>
+<span style="color: #000000">InvoiceId	CustomerId	InvoiceDate	BillingAddress	BillingCity	BillingState	BillingCountry	BillingPostalCode	Total</span>
+<span style="color: #000000">1	2	2009</span><span style="color: #008080">-</span><span style="color: #000000">01</span><span style="color: #008080">-</span><span style="color: #000000">01 00:00:00	Theodor</span><span style="color: #008080">-</span><span style="color: #000000">Heuss</span><span style="color: #008080">-</span><span style="color: #000000">Stra&szlig;e 34	Stuttgart	</span><span style="color: #0000ff">None	</span><span style="color: #000000">Germany	70174	1.98</span>
+<span style="color: #000000">2	4	2009</span><span style="color: #008080">-</span><span style="color: #000000">01</span><span style="color: #008080">-</span><span style="color: #000000">02 00:00:00	Ullev&aring;lsveien 14	Oslo	</span><span style="color: #0000ff">None	</span><span style="color: #000000">Norway	0171	3.96</span>
+<span style="color: #000000">3	8	2009</span><span style="color: #008080">-</span><span style="color: #000000">01</span><span style="color: #008080">-</span><span style="color: #000000">03 00:00:00	Gr&eacute;trystraat 63	Brussels	</span><span style="color: #0000ff">None	</span><span style="color: #000000">Belgium	1000	5.94</span>
+<span style="color: #008080">*/</span>
+
+
+<span style="color: #000000">CREATE TABLE media_types (</span>
+	<span style="color: #ff00ff">&quot;MediaTypeId&quot; </span><span style="color: #000000">INTEGER NOT NULL, </span>
+	<span style="color: #ff00ff">&quot;Name&quot; </span><span style="color: #000000">NVARCHAR(120), </span>
+	<span style="color: #000000">PRIMARY KEY (</span><span style="color: #ff00ff">&quot;MediaTypeId&quot;</span><span style="color: #000000">)</span>
+<span style="color: #000000">)</span>
+
+<span style="color: #008080">/*</span>
+<span style="color: #000000">3 rows </span><span style="color: #0000ff">from </span><span style="color: #000000">media_types table:</span>
+<span style="color: #000000">MediaTypeId	Name</span>
+<span style="color: #000000">1	MPEG audio </span><span style="color: #008080">file</span>
+<span style="color: #000000">2	Protected AAC audio </span><span style="color: #008080">file</span>
+<span style="color: #000000">3	Protected MPEG</span><span style="color: #008080">-</span><span style="color: #000000">4 video </span><span style="color: #008080">file</span>
+<span style="color: #008080">*/</span>
+
+
+<span style="color: #000000">CREATE TABLE playlist_track (</span>
+	<span style="color: #ff00ff">&quot;PlaylistId&quot; </span><span style="color: #000000">INTEGER NOT NULL, </span>
+	<span style="color: #ff00ff">&quot;TrackId&quot; </span><span style="color: #000000">INTEGER NOT NULL, </span>
+	<span style="color: #000000">PRIMARY KEY (</span><span style="color: #ff00ff">&quot;PlaylistId&quot;</span><span style="color: #000000">, </span><span style="color: #ff00ff">&quot;TrackId&quot;</span><span style="color: #000000">), </span>
+	<span style="color: #000000">FOREIGN KEY(</span><span style="color: #ff00ff">&quot;TrackId&quot;</span><span style="color: #000000">) REFERENCES tracks (</span><span style="color: #ff00ff">&quot;TrackId&quot;</span><span style="color: #000000">), </span>
+	<span style="color: #000000">FOREIGN KEY(</span><span style="color: #ff00ff">&quot;PlaylistId&quot;</span><span style="color: #000000">) REFERENCES playlists (</span><span style="color: #ff00ff">&quot;PlaylistId&quot;</span><span style="color: #000000">)</span>
+<span style="color: #000000">)</span>
+
+<span style="color: #008080">/*</span>
+<span style="color: #000000">3 rows </span><span style="color: #0000ff">from </span><span style="color: #000000">playlist_track table:</span>
+<span style="color: #000000">PlaylistId	TrackId</span>
+<span style="color: #000000">1	3402</span>
+<span style="color: #000000">1	3389</span>
+<span style="color: #000000">1	3390</span>
+<span style="color: #008080">*/</span>
+
+
+<span style="color: #000000">CREATE TABLE playlists (</span>
+	<span style="color: #ff00ff">&quot;PlaylistId&quot; </span><span style="color: #000000">INTEGER NOT NULL, </span>
+	<span style="color: #ff00ff">&quot;Name&quot; </span><span style="color: #000000">NVARCHAR(120), </span>
+	<span style="color: #000000">PRIMARY KEY (</span><span style="color: #ff00ff">&quot;PlaylistId&quot;</span><span style="color: #000000">)</span>
+<span style="color: #000000">)</span>
+
+<span style="color: #008080">/*</span>
+<span style="color: #000000">3 rows </span><span style="color: #0000ff">from </span><span style="color: #000000">playlists table:</span>
+<span style="color: #000000">PlaylistId	Name</span>
+<span style="color: #000000">1	Music</span>
+<span style="color: #000000">2	Movies</span>
+<span style="color: #000000">3	TV Shows</span>
+<span style="color: #008080">*/</span>
+
+
+<span style="color: #000000">CREATE TABLE tracks (</span>
+	<span style="color: #ff00ff">&quot;TrackId&quot; </span><span style="color: #000000">INTEGER NOT NULL, </span>
+	<span style="color: #ff00ff">&quot;Name&quot; </span><span style="color: #000000">NVARCHAR(200) NOT NULL, </span>
+	<span style="color: #ff00ff">&quot;AlbumId&quot; </span><span style="color: #000000">INTEGER, </span>
+	<span style="color: #ff00ff">&quot;MediaTypeId&quot; </span><span style="color: #000000">INTEGER NOT NULL, </span>
+	<span style="color: #ff00ff">&quot;GenreId&quot; </span><span style="color: #000000">INTEGER, </span>
+	<span style="color: #ff00ff">&quot;Composer&quot; </span><span style="color: #000000">NVARCHAR(220), </span>
+	<span style="color: #ff00ff">&quot;Milliseconds&quot; </span><span style="color: #000000">INTEGER NOT NULL, </span>
+	<span style="color: #ff00ff">&quot;Bytes&quot; </span><span style="color: #000000">INTEGER, </span>
+	<span style="color: #ff00ff">&quot;UnitPrice&quot; </span><span style="color: #000000">NUMERIC(10, 2) NOT NULL, </span>
+	<span style="color: #000000">PRIMARY KEY (</span><span style="color: #ff00ff">&quot;TrackId&quot;</span><span style="color: #000000">), </span>
+	<span style="color: #000000">FOREIGN KEY(</span><span style="color: #ff00ff">&quot;MediaTypeId&quot;</span><span style="color: #000000">) REFERENCES media_types (</span><span style="color: #ff00ff">&quot;MediaTypeId&quot;</span><span style="color: #000000">), </span>
+	<span style="color: #000000">FOREIGN KEY(</span><span style="color: #ff00ff">&quot;GenreId&quot;</span><span style="color: #000000">) REFERENCES genres (</span><span style="color: #ff00ff">&quot;GenreId&quot;</span><span style="color: #000000">), </span>
+	<span style="color: #000000">FOREIGN KEY(</span><span style="color: #ff00ff">&quot;AlbumId&quot;</span><span style="color: #000000">) REFERENCES albums (</span><span style="color: #ff00ff">&quot;AlbumId&quot;</span><span style="color: #000000">)</span>
+<span style="color: #000000">)</span>
+
+<span style="color: #008080">/*</span>
+<span style="color: #000000">3 rows </span><span style="color: #0000ff">from </span><span style="color: #000000">tracks table:</span>
+<span style="color: #000000">TrackId	Name	AlbumId	MediaTypeId	GenreId	Composer	Milliseconds	Bytes	UnitPrice</span>
+<span style="color: #000000">1	For Those About To Rock (We Salute You)	1	1	1	Angus Young, Malcolm Young, Brian Johnson	343719	11170334	0.99</span>
+<span style="color: #000000">2	Balls to the Wall	2	2	1	</span><span style="color: #0000ff">None	</span><span style="color: #000000">342562	5510424	0.99</span>
+<span style="color: #000000">3	Fast As a Shark	3	2	1	F. Baltes, S. Kaufman, U. Dirkscneider </span><span style="color: #008080">&amp; </span><span style="color: #000000">W. Hoffman	230619	3990994	0.99</span>
+<span style="color: #008080">*/</span>
+</span>
+</pre>
+
+
 # 👋 Few-shot examples
 # 👋 Dynamic few-shot examples
