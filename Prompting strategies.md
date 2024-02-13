@@ -28,6 +28,13 @@ print(db.dialect)
 print(db.get_usable_table_names())
 db.run("select * from artists limit 10;")
 ```
+<pre>
+<span style="font-family: Consolas">
+<span style="color: #000000">sqlite</span>
+<span style="color: #000000">[</span><span style="color: #ff00ff">'albums'</span><span style="color: #000000">, </span><span style="color: #ff00ff">'artists'</span><span style="color: #000000">, </span><span style="color: #ff00ff">'customers'</span><span style="color: #000000">, </span><span style="color: #ff00ff">'employees'</span><span style="color: #000000">, </span><span style="color: #ff00ff">'genres'</span><span style="color: #000000">, </span><span style="color: #ff00ff">'invoice_items'</span><span style="color: #000000">, </span><span style="color: #ff00ff">'invoices'</span><span style="color: #000000">, </span><span style="color: #ff00ff">'media_types'</span><span style="color: #000000">, </span><span style="color: #ff00ff">'playlist_track'</span><span style="color: #000000">, </span><span style="color: #ff00ff">'playlists'</span><span style="color: #000000">, </span><span style="color: #ff00ff">'tracks'</span><span style="color: #000000">]</span>
+<span style="color: #000000">[(1, </span><span style="color: #ff00ff">'AC/DC'</span><span style="color: #000000">), (2, </span><span style="color: #ff00ff">'Accept'</span><span style="color: #000000">), (3, </span><span style="color: #ff00ff">'Aerosmith'</span><span style="color: #000000">), (4, </span><span style="color: #ff00ff">'Alanis Morissette'</span><span style="color: #000000">), (5, </span><span style="color: #ff00ff">'Alice In Chains'</span><span style="color: #000000">), (6, </span><span style="color: #ff00ff">'Ant&ocirc;nio Carlos Jobim'</span><span style="color: #000000">), (7, </span><span style="color: #ff00ff">'Apocalyptica'</span><span style="color: #000000">), (8, </span><span style="color: #ff00ff">'Audioslave'</span><span style="color: #000000">), (9, </span><span style="color: #ff00ff">'BackBeat'</span><span style="color: #000000">), (10, </span><span style="color: #ff00ff">'Billy Cobham'</span><span style="color: #000000">)]</span>
+</span>
+</pre>
 
 ```
 위의 코드는 
