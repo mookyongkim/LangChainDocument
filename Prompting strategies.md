@@ -28,7 +28,7 @@ print(db.dialect)
 print(db.get_usable_table_names())
 db.run("select * from artists limit 10;")
 ```
-## 실행 결과
+## 결과
 <pre>
 <span style="font-family: Consolas">
 <span style="color: #000000">sqlite</span>
