@@ -392,6 +392,7 @@ examples = [
 
 from langchain_core.prompts import FewShotPromptTemplate, PromptTemplate
 
+# example_prompt를 사용하는 이유는 example의 구성 형태를 알려주는 prompt
 example_prompt = PromptTemplate.from_template("User Input: {input}\nSQL query: {query}" )
 
 prompt = FewShotPromptTemplate(
