@@ -38,6 +38,47 @@ db.run("SELECT * FROM Artist LIMIT 10;")
 ```
 
 # ⚾️Chain
+
+```python
+from langchain.chains import create_sql_query_chain
+from langchain_openai import ChatOpenAI
+from langchain_community.utilities import SQLDatabase
+
+llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0)
+db = SQLDatabase.from_uri("sqlite:///chinook.db")
+chain = create_sql_query_chain(llm, db)
+response = chain.invoke({"question": "그곳에 직원이 몇명이 있나요?"})
+response
+
+```
+
+```
+db.run(response)
+
+```
+
+```
+chain.get_prompts()[0].pretty_print()
+
+```
+
+```python
+# 아래의 코드는 SQL을 생성하고, 실행해서 결과를 반환하는 코드이다.
+from langchain.chains import create_sql_query_chain
+from langchain_openai import ChatOpenAI
+from langchain_community.tools.sql_database.tool import QuerySQLDataBaseTool
+
+llm = ChatOpenAI(model="gpt-3.5-turbo", temperature=0)
+db = SQLDatabase.from_uri("sqlite:///chinook.db")
+
+execute_query = QuerySQLDataBaseTool(db=db)
+write_query = create_sql_query_chain(llm, db)
+chain = write_query | execute_query
+chain.invoke({"question": "How many employees are there"})
+
+```
+
+
 # 🎾Convert question to SQL query
 # 🎾Execute SQL query
 # 🎾Answer the question
