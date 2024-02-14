@@ -490,3 +490,46 @@ example_selector.select_examples({"input": "how many artists are there?"})
 </pre>
 
 
+```python
+prompt = FewShotPromptTemplate(
+    example_selector=example_selector,
+    example_prompt=example_prompt,
+    prefix="You are a SQLite expert. Given an input question, create a syntactically correct SQLite query to run. Unless otherwise specificed, do not return more than {top_k} rows.\n\nHere is the relevant table info: {table_info}\n\nBelow are a number of examples of questions and their corresponding SQL queries.",
+    suffix="User input: {input}\nSQL query: ",
+    input_variables=["input", "top_k", "table_info"],
+)
+
+print(prompt.format(input="how many artists are there?", top_k=3, table_info="foo"))
+
+
+```
+
+<pre>
+<span style="font-family: Consolas">
+<span style="color: #000000">You are a SQLite expert. Given an </span><span style="color: #808000">input </span><span style="color: #000000">question, create a syntactically correct SQLite query to run. Unless otherwise specificed, do </span><span style="color: #0000ff">not return </span><span style="color: #000000">more than 3 rows.</span>
+
+<span style="color: #000000">Here </span><span style="color: #0000ff">is </span><span style="color: #000000">the relevant table info: foo</span>
+
+<span style="color: #000000">Below are a number of examples of questions </span><span style="color: #0000ff">and </span><span style="color: #000000">their corresponding SQL queries.</span>
+
+<span style="color: #000000">User Input: List </span><span style="color: #808000">all </span><span style="color: #000000">artists.</span>
+<span style="color: #000000">SQL query: SELECT </span><span style="color: #008080">* </span><span style="color: #000000">FROM Artist;</span>
+
+<span style="color: #000000">User Input: How many employees are there</span>
+<span style="color: #000000">SQL query: SELECT COUNT(</span><span style="color: #008080">*</span><span style="color: #000000">) FROM </span><span style="color: #ff00ff">&quot;Employee&quot;</span>
+
+<span style="color: #000000">User Input: How many tracks are there </span><span style="color: #0000ff">in </span><span style="color: #000000">the album </span><span style="color: #0000ff">with </span><span style="color: #000000">ID 5?</span>
+<span style="color: #000000">SQL query: SELECT COUNT(</span><span style="color: #008080">*</span><span style="color: #000000">) FROM Track WHERE AlbumId = 5;</span>
+
+<span style="color: #000000">User Input: Which albums are </span><span style="color: #0000ff">from </span><span style="color: #000000">the year 2000?</span>
+<span style="color: #000000">SQL query: SELECT </span><span style="color: #008080">* </span><span style="color: #000000">FROM Album WHERE strftime(</span><span style="color: #ff00ff">'%Y'</span><span style="color: #000000">, ReleaseDate) = </span><span style="color: #ff00ff">'2000'</span><span style="color: #000000">;</span>
+
+<span style="color: #000000">User Input: List </span><span style="color: #808000">all </span><span style="color: #000000">tracks </span><span style="color: #0000ff">in </span><span style="color: #000000">the </span><span style="color: #ff00ff">'Rock' </span><span style="color: #000000">genre.</span>
+<span style="color: #000000">SQL query: SELECT </span><span style="color: #008080">* </span><span style="color: #000000">FROM Track WHERE GenreId = (SELECT GenreId FROM Genre WHERE Name = </span><span style="color: #ff00ff">'Rock'</span><span style="color: #000000">);</span>
+
+<span style="color: #000000">User </span><span style="color: #808000">input</span><span style="color: #000000">: how many artists are there?</span>
+<span style="color: #000000">SQL query: </span>
+</span>
+</pre>
+
+
