@@ -457,3 +457,36 @@ FewShotPromptTemplate(
 
 
 # 👋 Dynamic few-shot examples
+
+```python
+from langchain_community.vectorstores import FAISS
+from langchain_core.example_selectors import SemanticSimilarityExampleSelector
+from langchain_openai import OpenAIEmbeddings
+
+example_selector = SemanticSimilarityExampleSelector.from_examples(
+    examples,
+    OpenAIEmbeddings(),
+    FAISS,
+    k=5,
+    input_keys=["input"],
+)
+
+example_selector.select_examples({"input": "how many artists are there?"})
+
+```
+
+<pre>
+<span style="font-family: Consolas">
+<span style="color: #000000">[{</span><span style="color: #ff00ff">'input'</span><span style="color: #000000">: </span><span style="color: #ff00ff">'List all artists.'</span><span style="color: #000000">, </span><span style="color: #ff00ff">'query'</span><span style="color: #000000">: </span><span style="color: #ff00ff">'SELECT * FROM Artist;'</span><span style="color: #000000">},</span>
+ <span style="color: #000000">{</span><span style="color: #ff00ff">'input'</span><span style="color: #000000">: </span><span style="color: #ff00ff">'How many employees are there'</span><span style="color: #000000">,</span>
+  <span style="color: #ff00ff">'query'</span><span style="color: #000000">: </span><span style="color: #ff00ff">'SELECT COUNT(*) FROM &quot;Employee&quot;'</span><span style="color: #000000">},</span>
+ <span style="color: #000000">{</span><span style="color: #ff00ff">'input'</span><span style="color: #000000">: </span><span style="color: #ff00ff">'How many tracks are there in the album with ID 5?'</span><span style="color: #000000">,</span>
+  <span style="color: #ff00ff">'query'</span><span style="color: #000000">: </span><span style="color: #ff00ff">'SELECT COUNT(*) FROM Track WHERE AlbumId = 5;'</span><span style="color: #000000">},</span>
+ <span style="color: #000000">{</span><span style="color: #ff00ff">'input'</span><span style="color: #000000">: </span><span style="color: #ff00ff">'Which albums are from the year 2000?'</span><span style="color: #000000">,</span>
+  <span style="color: #ff00ff">'query'</span><span style="color: #000000">: </span><span style="color: #ff00ff">&quot;SELECT * FROM Album WHERE strftime('%Y', ReleaseDate) = '2000';&quot;</span><span style="color: #000000">},</span>
+ <span style="color: #000000">{</span><span style="color: #ff00ff">'input'</span><span style="color: #000000">: </span><span style="color: #ff00ff">&quot;List all tracks in the 'Rock' genre.&quot;</span><span style="color: #000000">,</span>
+  <span style="color: #ff00ff">'query'</span><span style="color: #000000">: </span><span style="color: #ff00ff">&quot;SELECT * FROM Track WHERE GenreId = (SELECT GenreId FROM Genre WHERE Name = 'Rock');&quot;</span><span style="color: #000000">}]</span>
+</span>
+</pre>
+
+
