@@ -38,6 +38,7 @@ db.run("SELECT * FROM Artist LIMIT 10;")
 ```
 
 # ⚾️Chain
+# 🎾Convert question to SQL query
 
 ```python
 from langchain.chains import create_sql_query_chain
@@ -62,6 +63,8 @@ chain.get_prompts()[0].pretty_print()
 
 ```
 
+# 🎾Execute SQL query
+
 ```python
 # 아래의 코드는 SQL을 생성하고, 실행해서 결과를 반환하는 코드이다.
 from langchain.chains import create_sql_query_chain
@@ -78,9 +81,6 @@ chain.invoke({"question": "How many employees are there"})
 
 ```
 
-
-# 🎾Convert question to SQL query
-# 🎾Execute SQL query
 # 🎾Answer the question
 # ⚾️Agents
 # 🎾Initializing agent
