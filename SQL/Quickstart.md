@@ -20,6 +20,23 @@ SQL 데이터베이스에 대ㅎ해 Q&A 시스템을 구축하려면 모델에�
 
 ```
 
+```python
+import os
+
+os.environ["OPENAI_API_KEY"] = ""
+os.environ["LANGCHAIN_API_KEY"] = ""
+os.environ["LANGCHAIN_TRACING_V2"] = "true"
+
+from langchain_community.utilities import SQLDatabase
+
+# SQLAlchemy 라이브러리를 지원하는 모든 DB는 연결이 가능하다.
+db = SQLDatabase.from_uri("sqlite:///Chinook.db")
+print(db.dialect)
+print(db.get_usable_table_names())
+db.run("SELECT * FROM Artist LIMIT 10;")
+
+```
+
 # ⚾️Chain
 # 🎾Convert question to SQL query
 # 🎾Execute SQL query
