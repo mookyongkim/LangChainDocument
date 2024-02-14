@@ -532,4 +532,21 @@ print(prompt.format(input="how many artists are there?", top_k=3, table_info="fo
 </span>
 </pre>
 
+# 테스트
+```
+from langchain_community.utilities import SQLDatabase
+from langchain_openai import ChatOpenAI
+from langchain.chains.sql_database.query import create_sql_query_chain
+
+db = SQLDatabase.from_uri("sqlite:///chinook.db", sample_rows_in_table_info=3)
+llm = ChatOpenAI(temperature=0, verbose=True)
+
+chain = create_sql_query_chain(llm, db, prompt)
+chain.invoke({"question": "how many artists are there?"})
+
+```
+
+```
+SELECT COUNT(*) FROM artists;
+```
 
