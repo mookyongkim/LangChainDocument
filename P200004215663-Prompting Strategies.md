@@ -406,4 +406,53 @@ print(prompt.format(input="How many artists are there?", top_k=3, table_info="fo
 
 ```
 
+## prompt 내용
+```
+You are a SQLite expert. Given an input question, create a syntactically correct SQLite query to run. Unless otherwise specificed, do not return more than 3 rows.
+
+Here is the relevant table info: foo
+
+Below are a number of examples of questions and their corresponding SQL queries.
+
+User Input: List all artists.
+SQL query: SELECT * FROM Artist;
+
+User Input: Find all albums for the artist 'AC/DC'.
+SQL query: SELECT * FROM Album WHERE ArtistId = (SELECT ArtistId FROM Artist WHERE Name = 'AC/DC');
+
+User Input: List all tracks in the 'Rock' genre.
+SQL query: SELECT * FROM Track WHERE GenreId = (SELECT GenreId FROM Genre WHERE Name = 'Rock');
+
+User Input: Find the total duration of all tracks.
+SQL query: SELECT SUM(Milliseconds) FROM Track;
+
+User Input: List all customers from Canada.
+SQL query: SELECT * FROM Customer WHERE Country = 'Canada';
+
+User input: How many artists are there?
+SQL query: 
+
+```
+
+```
+FewShotPromptTemplate(
+    input_variables=['input', 'table_info', 'top_k'],
+    examples=[
+        {'input': 'List all artists.', 'query': 'SELECT * FROM Artist;'},
+        {'input': "Find all albums for the artist 'AC/DC'.", 'query': "SELECT * FROM Album WHERE ArtistId = (SELECT ArtistId FROM Artist WHERE Name = 'AC/DC');"},
+        {'input': "List all tracks in the 'Rock' genre.", 'query': "SELECT * FROM Track WHERE GenreId = (SELECT GenreId FROM Genre WHERE Name = 'Rock');"},
+        {'input': 'Find the total duration of all tracks.', 'query': 'SELECT SUM(Milliseconds) FROM Track;'},
+        {'input': 'List all customers from Canada.', 'query': "SELECT * FROM Customer WHERE Country = 'Canada';"}
+    ],
+    example_prompt=PromptTemplate(
+        input_variables=['input', 'query'],
+        template='User Input: {input}\nSQL query: {query}'
+    ),
+    suffix='User input: {input}\nSQL query: ',
+    prefix='You are a SQLite expert. Given an input question, create a syntactically correct SQLite query to run. Unless otherwise specificed, do not return more than {top_k} rows.\n\nHere is the relevant table info: {table_info}\n\nBelow are a number of examples of questions and their corresponding SQL queries.'
+)
+
+```
+
+
 # 👋 Dynamic few-shot examples
