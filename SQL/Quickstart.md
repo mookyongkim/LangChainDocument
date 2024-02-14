@@ -13,10 +13,12 @@ SQL 데이터베이스에 대ㅎ해 Q&A 시스템을 구축하려면 모델에�
 ![SQL 쿼리 생성 아키텍처](https://python.langchain.com/assets/images/sql_usecase-d432701261f05ab69b38576093718cf3.png)
 
 # ⚾️Setup
+```
 !pip install -quiet langchain  
 !pip install -quiet langchain-community  
 !pip install -quiet langchain-openai  
 
+```
 
 # ⚾️Chain
 # 🎾Convert question to SQL query
