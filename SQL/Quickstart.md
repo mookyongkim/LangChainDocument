@@ -9,7 +9,9 @@ SQL 데이터베이스에 대ㅎ해 Q&A 시스템을 구축하려면 모델에�
 - 사용자 질의를 SQL 쿼리로 변환: Model 사용자 질의를 SQL 쿼리로 변환
 - 생성된 SQL 쿼리 실행
 - 사용자 질문에 답변하기: SQL 쿼리 결과를 사용해서 사용자 질의에 대한 답변을 생성
-- 
+
+![SQL 쿼리 생성 아키텍처](https://python.langchain.com/assets/images/sql_usecase-d432701261f05ab69b38576093718cf3.png)
+
 # ⚾️Setup
 # ⚾️Chain
 # 🎾Convert question to SQL query
